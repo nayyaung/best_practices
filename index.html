@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Git Commands</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #77aaff 3px solid;
+        }
+        header h1 {
+            text-align: center;
+            margin: 0;
+            padding-bottom: 10px;
+        }
+        .content {
+            padding: 20px;
+            background: #fff;
+            margin-top: 20px;
+        }
+        .content h2 {
+            color: #333;
+        }
+        .content pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Advanced Git Commands</h1>
+        </div>
+    </header>
+
+    <div class="container content">
+        <section>
+            <h2>git rebase</h2>
+            <p><strong>Description:</strong> Reapplies commits on top of another base tip.</p>
+            <p><strong>Usage:</strong> Used to integrate changes from one branch into another, creating a linear commit history.</p>
+            <pre><code>git rebase &lt;branch&gt;</code></pre>
+        </section>
+
+        <section>
+            <h2>git cherry-pick</h2>
+            <p><strong>Description:</strong> Apply the changes introduced by some existing commits.</p>
+            <p><strong>Usage:</strong> Used to apply specific commits from one branch to another.</p>
+            <pre><code>git cherry-pick &lt;commit-hash&gt;</code></pre>
+        </section>
+
+        <section>
+            <h2>git stash</h2>
+            <p><strong>Description:</strong> Stashes the changes in a dirty working directory away.</p>
+            <p><strong>Usage:</strong> Temporarily saves changes that are not ready to be committed.</p>
+            <pre><code>git stash
+git stash apply</code></pre>
+        </section>
+
+        <section>
+            <h2>git bisect</h2>
+            <p><strong>Description:</strong> Uses binary search to find the commit that introduced a bug.</p>
+            <p><strong>Usage:</strong> Helps in identifying the commit that introduced a bug by performing a binary search.</p>
+            <pre><code>git bisect start
+git bisect bad
+git bisect good &lt;commit&gt;</code></pre>
+        </section>
+
+        <section>
+            <h2>git reflog</h2>
+            <p><strong>Description:</strong> Shows a log of changes to the local repository's HEAD.</p>
+            <p><strong>Usage:</strong> Useful for recovering lost commits and understanding the history of changes.</p>
+            <pre><code>git reflog</code></pre>
+        </section>
+
+        <section>
+            <h2>git reset</h2>
+            <p><strong>Description:</strong> Resets the current HEAD to a specified state.</p>
+            <p><strong>Usage:</strong> Used to undo changes by resetting the current branch to a previous state.</p>
+            <pre><code>git reset --soft &lt;commit&gt;
+git reset --mixed &lt;commit&gt;
+git reset --hard &lt;commit&gt;</code></pre>
+        </section>
+
+        <section>
+            <h2>git revert</h2>
+            <p><strong>Description:</strong> Creates a new commit that undoes the changes made by a previous commit.</p>
+            <p><strong>Usage:</strong> Used to undo changes without rewriting commit history.</p>
+            <pre><code>git revert &lt;commit&gt;</code></pre>
+        </section>
+
+        <section>
+            <h2>git filter-branch</h2>
+            <p><strong>Description:</strong> Rewrites branches by filtering the commit history.</p>
+            <p><strong>Usage:</strong> Used for rewriting commit history, such as removing sensitive data from all commits.</p>
+            <pre><code>git filter-branch --tree-filter 'rm -rf secrets/' HEAD</code></pre>
+        </section>
+
+        <section>
+            <h2>git submodule</h2>
+            <p><strong>Description:</strong> Manages external repositories within a repository.</p>
+            <p><strong>Usage:</strong> Used to include and manage external repositories as subdirectories.</p>
+            <pre><code>git submodule add &lt;repository-url&gt;
+git submodule update --init --recursive</code></pre>
+        </section>
+
+        <section>
+            <h2>git blame</h2>
+            <p><strong>Description:</strong> Shows what revision and author last modified each line of a file.</p>
+            <p><strong>Usage:</strong> Used to identify who made changes to specific lines in a file.</p>
+            <pre><code>git blame &lt;file&gt;</code></pre>
+        </section>
+
+        <section>
+            <h2>git show</h2>
+            <p><strong>Description:</strong> Shows various types of objects.</p>
+            <p><strong>Usage:</strong> Used to display information about a commit, tag, or other Git object.</p>
+            <pre><code>git show &lt;commit&gt;</code></pre>
+        </section>
+
+        <section>
+            <h2>git diff</h2>
+            <p><strong>Description:</strong> Shows changes between commits, commit and working tree, etc.</p>
+            <p><strong>Usage:</strong> Used to view differences between various states of the repository.</p>
+            <pre><code>git diff &lt;commit1&gt; &lt;commit2&gt;</code></pre>
+        </section>
+
+        <section>
+            <h2>git log</h2>
+            <p><strong>Description:</strong> Shows the commit logs.</p>
+            <p><strong>Usage:</strong> Used to view the commit history with various formatting options.</p>
+            <pre><code>git log --oneline --graph --decorate --all</code></pre>
+        </section>
+
+        <section>
+            <h2>git tag</h2>
+            <p><strong>Description:</strong> Creates, lists, deletes, or verifies a tag object signed with GPG.</p>
+            <p><strong>Usage:</strong> Used to create and manage tags for marking specific points in history.</p>
+            <pre><code>git tag -a v1.0 -m "Version 1.0"
+git push origin v1.0</code></pre>
+        </section>
+
+        <section>
+            <h2>git archive</h2>
+            <p><strong>Description:</strong> Creates an archive of files from a named tree.</p>
+            <p><strong>Usage:</strong> Used to create a tar or zip archive of the repository.</p>
+            <pre><code>git archive --format=tar --output=archive.tar &lt;branch&gt;</code></pre>
+        </section>
+
+        <section>
+            <h2>git clean</h2>
+            <p><strong>Description:</strong> Removes untracked files from the working tree.</p>
+            <p><strong>Usage:</strong> Used to clean the working directory by removing untracked files.</p>
+            <pre><code>git clean -f -d</code></pre>
+        </section>
+
+        <section>
+            <h2>git remote</h2>
+            <p><strong>Description:</strong> Manages set of tracked repositories.</p>
+            <p><strong>Usage:</strong> Used to manage remote repository connections.</p>
+            <pre><code>git remote add origin &lt;repository-url&gt;
+git remote -v</code></pre>
+        </section>
+
+        <section>
+            <h2>git config</h2>
+            <p><strong>Description:</strong> Gets and sets repository or global options.</p>
+            <p><strong>Usage:</strong> Used to configure Git settings.</p>
+            <pre><code>git config --global user.name "Your Name"
+git config --global user.email "your.email@example.com"</code></pre>
+        </section>
+
+        <section>
+            <h2>git ls-tree</h2>
+            <p><strong>Description:</strong> Lists the contents of a tree object.</p>
+            <p><strong>Usage:</strong> Used to view the contents of a tree object.</p>
+            <pre><code>git ls-tree &lt;commit&gt;</code></pre>
+        </section>
+
+        <section>
+            <h2>git fsck</h2>
+            <p><strong>Description:</strong> Verifies the connectivity and validity of objects in the database.</p>
+            <p><strong>Usage:</strong> Used to check the integrity of the repository.</p>
+            <pre><code>git fsck</code></pre>
+        </section>
+    </div>
+
+    <footer>
+        <p>Advanced Git Commands &copy; 2023</p>
+    </footer>
+</body>
+</html>
