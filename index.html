@@ -55,7 +55,7 @@
 <body>
     <header>
         <div class="container">
-            <h1>Advanced Git Commands</h1>
+            <h1>Interesting Git Commands</h1>
         </div>
     </header>
 
@@ -93,8 +93,8 @@ git bisect good &lt;commit&gt;</code></pre>
 
         <section>
             <h2>git reflog</h2>
-            <p><strong>Description:</strong> Shows a log of changes to the local repository's HEAD.</p>
-            <p><strong>Usage:</strong> Useful for recovering lost commits and understanding the history of changes.</p>
+            <p><strong>Description:</strong> Shows a log of changes to the <strong>local</strong> repository's HEAD.</p>
+            <p><strong>Usage:</strong> Useful for recovering lost commits, commits before rebasing and understanding the history of changes.</p>
             <pre><code>git reflog</code></pre>
         </section>
 
@@ -119,14 +119,6 @@ git reset --hard &lt;commit&gt;</code></pre>
             <p><strong>Description:</strong> Rewrites branches by filtering the commit history.</p>
             <p><strong>Usage:</strong> Used for rewriting commit history, such as removing sensitive data from all commits.</p>
             <pre><code>git filter-branch --tree-filter 'rm -rf secrets/' HEAD</code></pre>
-        </section>
-
-        <section>
-            <h2>git submodule</h2>
-            <p><strong>Description:</strong> Manages external repositories within a repository.</p>
-            <p><strong>Usage:</strong> Used to include and manage external repositories as subdirectories.</p>
-            <pre><code>git submodule add &lt;repository-url&gt;
-git submodule update --init --recursive</code></pre>
         </section>
 
         <section>
