@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REST API Design and Architecture Best Practices</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding-top: 30px;
+            min-height: 70px;
+            border-bottom: #77aaff 3px solid;
+        }
+
+        header h1 {
+            text-align: center;
+            margin: 0;
+            padding-bottom: 10px;
+        }
+
+        .content {
+            padding: 20px;
+            background: #fff;
+            margin-top: 20px;
+        }
+
+        .content h2 {
+            color: #333;
+        }
+
+        .content pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+        }
+
+        footer {
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            margin-top: 20px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <h1>REST API Design Best Practices</h1>
+        </div>
+    </header>
+
+    <div class="container content">
+
+        <section>
+            <h2>Some background on REST API</h2>
+            Representational State Transfer (REST) is an architectural style for designing API.
+            REST API is the stateless, self-contained set of functions that can be accessed over the HTTP protocol.
+            <h3>What is Statelessness?</h3>
+            <p>Statelessness means that each request from a client to a server must contain all the information needed
+                to understand and process the request
+                The server does not store any client context between requests using technology such as State Management.
+            </p>
+            <h3>Idempotency in Web API</h3>
+            <p>Idempotency means that making multiple identical requests should have the same effect as making a
+                single
+                request.</p>
+            <p>GET, PUT, and DELETE requests are idempotent. This means that these operations can be called multiple
+                times without different outcomes.</p>
+            <h3>Uniform Resource Identifier</h3>
+            A Uniform Resource Identifier (URI) is a compact sequence of
+            characters that identifies an abstract or physical resource<br>
+            <pre>
+        ftp://ftp.is.co.za/rfc/rfc1808.txt
+        http://www.ietf.org/rfc/rfc2396.txt
+        ldap://[2001:db8::7]/c=GB?objectClass?one
+        mailto:John.Doe@example.com 
+        tel:+1-816-555-1212 
+        urn:oasis:names:specification:docbook:dtd:xml:4.1.2
+            </pre>
+        </section>
+        <hr>
+        <h2>Main Components in REST API</h2>
+
+        <section>
+            <h3>URL</h3>
+            <p>"Uniform Resource Locator" (URL) refers to the subset of URIs
+                that, in addition to identifying a resource, provide a means of
+                locating the resource by describing its primary access mechanism
+                (e.g., its network "location").</p>
+            <h4>resources</h4>
+            <p>Resources are the entity to be operated upon in a REST API, typically represented as nouns (e.g.,
+                <code>users</code>, <code>orders</code>, <code>products</code>).
+            </p>
+            <p>Resources have their own unique identifier.</p>
+        </section>
+
+        <section>
+            <h3>HTTP Methods</h2>
+                <p>Below are standard HTTP methods to perform operations on resources.</p>
+                <ul>
+                    <li><code>GET</code>: Retrieve a resource or a collection of resources.</li>
+                    <li><code>POST</code>: Create a new resource.</li>
+                    <li><code>PUT</code>: Update an existing resource or create a resource if it does not exist.</li>
+                    <li><code>PATCH</code>: Partially update an existing resource.</li>
+                    <li><code>DELETE</code>: Remove a resource.</li>
+                </ul>
+        </section>
+        <section>
+            <h3>HATEOAS (Hypermedia as the Engine of Application State)</h3>
+            <p>Clients interact with the application entirely through hypermedia provided
+                dynamically by application servers. This means that the server provides links to related resources and
+                actions in the response.</p>
+            <pre>
+        GET /orders/523 HTTP/1.1
+        Host: example.org
+        Accept: application/hal+json
+        
+        HTTP/1.1 200 OK
+        Content-Type: application/hal+json
+        
+        {
+            "_links": {
+            "self": { "href": "/orders/523" },
+            "warehouse": { "href": "/warehouse/56" },
+            "invoice": { "href": "/invoices/873" }
+            },
+            "currency": "USD",
+            "status": "shipped",
+            "total": 10.20
+        }
+            </pre>
+            <small>Ref: <a href="https://datatracker.ietf.org/doc/html/draft-kelly-json-hal-03#section-3" target="_blank">JSON HAL Specification Section 3</a></small>
+        </section>
+        <hr>
+        <section>
+            <h2>Best Practices</h2>
+            <h3>Use Nouns for Resource URIs</h3>
+            <p>Use clear and descriptive nouns for resource URIs, usually in plural.</p>
+            <p>Example: <br> Use - <code>/users</code>, <code>/orders</code>, <code>/products</code><br>
+            Do not use - <s><code>/createUsers</code>, <code>/getOrders</code>, <code>/deleteProducts</code></s></p>
+            
+            <h3>Cacheability</h3>
+            <p>Cacheability refers to the ability of responses to be stored and reused to
+                improve performance and reduce server load.</p>
+            <p>Use appropriate HTTP headers to control caching behavior.</p>
+            <p><strong>Example:</strong></p>
+            <ul>
+                <li><code>Cache-Control: no-cache</code>: Indicates that the response should not be cached.</li>
+                <li><code>Cache-Control: public, max-age=3600</code>: Indicates that the response can be cached by any
+                    cache and is valid for 1 hour.</li>
+                <li><code>ETag</code>: Provides a way to validate cached responses.</li>
+                <li><code>Last-Modified</code>: Indicates the last time the resource was modified.</li>
+            </ul>
+            <h3>Versioning</h3>
+            <p>Include version information in the URI or headers to manage changes to
+                the API.</p>
+            <p><strong>Example:</strong> <code>/v1/users</code></p>
+            <h3>Response Code</h3>
+            <p>Use standard HTTP status codes and provide meaningful error messages in
+                the response body.</p>
+            <ul>
+                <li>Informational responses (100 – 199)</li>
+                <li>Successful responses (200 – 299)</li>
+                <li>Redirection messages (300 – 399)</li>
+                <li>Client error responses (400 – 499)</li>
+                <li>Server error responses (500 – 599)</li>
+            </ul>
+            <small>Ref: <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Status" target="_blank">HTTP Status Codes
+                    </a></small>
+        </section>
+
+        <section>
+            <h3>Filtering, Sorting, and Pagination</h3>
+            <p>Use query parameters to filter, sort, and paginate results.<br>
+                <small>Example:</small>
+            </p>
+            <ul>
+                <li><code>/users?role=admin</code>: Filter users by role.</li>
+                <li><code>/users?sort=created_at</code>: Sort users by creation date.</li>
+                <li><code>/users?page=2&limit=10</code>: Paginate users, showing 10 per page.</li>
+            </ul>
+        </section>
+
+        <section>
+            <h3>Be mindful about Anti-Patterns</h3>
+            <p>Take note about not falling into anti-patterns such as Chatty IO and extraneous fetch</p>
+        </section>
+
+        <section>
+            <h3>Security</h3>
+            <p>Implement authentication and authorization, and use HTTPS to encrypt data
+                in transit.</p>
+            <p><strong>Such as:</strong></p>
+            <ul>
+                <li>Use OAuth or JWT for authentication.</li>
+                <li>Ensure users have necessary permissions to access resources.</li>
+                <li>Use HTTPS to secure data transmission.</li>
+            </ul>
+            <h4>Securing REST API using OWASP</h4>
+            <p>Follow OWASP guidelines to secure your REST API.</p>
+            <ul>
+                <li>Validate all inputs to prevent injection attacks such as XSS, CSRF.</li>
+                <li>Implement strong authentication and session management.</li>
+                <li>Use HTTPS to protect data in transit.</li>
+            </ul>
+            <small>
+                <p>Ref: <a href="https://owasp.org/www-project-api-security/"
+                        target="_blank">OWASP API Security Project</a>.</p>
+            </small>
+        </section>
+        <section>
+            <h3>Documentation</h3>
+            <p>Provide proper documentation for your API
+                request/response formats, and examples by using tools like Swagger/OpenAPI.</p>
+        </section>
+    </div>
+</body>
+
+</html>
