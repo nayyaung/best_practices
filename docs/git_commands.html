@@ -62,8 +62,8 @@
     <div class="container content">
         <section>
             <h2>git rebase</h2>
-            <p><strong>Description:</strong> Reapplies commits on top of another base tip.</p>
-            <p><strong>Usage:</strong> Used to integrate changes from one branch into another, creating a linear commit history.</p>
+            <p>Reapplies commits on top of another base tip.</p>
+            <p>Used to integrate changes from one branch into another, creating a linear commit history.</p>
             <pre><code>git rebase &lt;branch&gt;</code></pre>
         </section>
 
@@ -173,10 +173,8 @@ git push origin v1.0</code></pre>
         
         <section>
             <h2>git squash</h2>
-            <p><strong>Description:</strong> Combines multiple commits into a single commit.</p>
-            <p><strong>Usage:</strong> Used to simplify the commit history by merging several commits into one.</p>
-            <pre><code>git rebase -i HEAD~n
-# In the interactive rebase, change 'pick' to 'squash' for the commits you want to squash</code></pre>
+            <p>Combines multiple commits into a single commit.</p>
+            <p>Used to simplify the commit history by merging several commits into one. Squash can be done by merging or by doing reset and commit</p>
         </section>
     </div>
 </body>
